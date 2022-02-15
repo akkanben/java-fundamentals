@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.*;
 import java.util.Random;
 
 public class Main {
@@ -36,5 +38,33 @@ public class Main {
 			}
 		}
 		System.out.println("It took " + flips + " flips to flip " + n + " heads in a row.");
+		clock();
+	}
+
+	public static void clock() {
+		LocalDateTime now = LocalDateTime.now();
+		String time = now.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+		int hertz = 0;
+		while(true) {
+			hertz++;
+			now = LocalDateTime.now();
+			if (!now.format(DateTimeFormatter.ofPattern("HH:mm:ss")).equals(time)) {
+				System.out.println(time + " " + getHertzToString(hertz));
+				time = now.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+				hertz = 0;
+			}
+		}
+	}
+
+	public static String getHertzToString(int hertz) {
+		String output = "";
+		if (hertz < 1000) 
+			return hertz + " Hz"; 
+		else if (hertz < 1_000_000)
+			return (double)hertz / 1000 + " kHz";
+		else if (hertz < 1_000_000_000)
+			return (double)hertz / 1_000_000 + " MHz";
+		else
+			return (double)hertz / 1_000_000_000 + " GHz";
 	}
 }
