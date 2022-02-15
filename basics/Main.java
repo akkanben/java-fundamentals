@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Main {
 	public static void main(String[] args) {
-		// Pluralize Tests
+		// Pluralize tests
 		System.out.println("~PLURALIZE~");
 		int dogCount = 1;
 		System.out.println("I own " + dogCount + " " + pluralize("dog", dogCount) + ".");
@@ -14,8 +14,14 @@ public class Main {
 		System.out.println("I own " + turtleCount + " " + pluralize("turtle", turtleCount) + ".");
 		System.out.print("\n\n");
 
+		// Flipping Coins tests
 		System.out.println("~FLIPPING COINS~");
 		flipNHeads(3);
+		System.out.print("\n\n");
+
+		// Command Line Clock test
+		System.out.println("~COMMAND LINE CLOCK~");
+		clock();
 	}
 
 	public static String pluralize(String str, int num) {
@@ -38,7 +44,6 @@ public class Main {
 			}
 		}
 		System.out.println("It took " + flips + " flips to flip " + n + " heads in a row.");
-		clock();
 	}
 
 	public static void clock() {
