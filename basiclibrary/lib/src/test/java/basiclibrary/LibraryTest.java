@@ -29,7 +29,7 @@ class LibraryTest {
         assert(Library.containsDuplicates(firstTwoDupes));
         assert(!Library.containsDuplicates(emptyArr));
         assert(Library.containsDuplicates(lastTwoDupes));
-        assert
+        assert(Library.containsDuplicates(firstLastDupes));
     }
 
     @Test
