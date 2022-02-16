@@ -9,8 +9,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class LibraryTest {
     @Test
     void test_roll() {
+        Library sut = new Library();
         int testSize = 10;
-        int[] arr = Library.roll(testSize);
+        int[] arr = sut.roll(testSize);
         assertEquals(testSize, arr.length);
         for (int element : arr)
             assert(element > 0 && element <= 6);
@@ -18,34 +19,37 @@ class LibraryTest {
 
     @Test
     void test_containsDuplicates() {
+        Library sut = new Library();
         int[] dupes = {4, 1, 32, 51, 22, 32, 9};
         int[] noDupes = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         int[] firstTwoDupes = {5, 5, 65, 23, 12, 14, 21};
         int[] lastTwoDupes = {1, 2, 3, 4, 5, 6, 7, 8, 9, 9};
         int[] firstLastDupes = {5, 34, 12, 41, 22, 51, 5};
         int[] emptyArr = {};
-        assert(Library.containsDuplicates(dupes));
-        assert(!Library.containsDuplicates(noDupes));
-        assert(Library.containsDuplicates(firstTwoDupes));
-        assert(!Library.containsDuplicates(emptyArr));
-        assert(Library.containsDuplicates(lastTwoDupes));
-        assert(Library.containsDuplicates(firstLastDupes));
+        assert(sut.containsDuplicates(dupes));
+        assert(!sut.containsDuplicates(noDupes));
+        assert(sut.containsDuplicates(firstTwoDupes));
+        assert(!sut.containsDuplicates(emptyArr));
+        assert(sut.containsDuplicates(lastTwoDupes));
+        assert(sut.containsDuplicates(firstLastDupes));
     }
 
     @Test
     void test_average() {
+        Library sut = new Library();
         int[] numsA = {90, 95, 89, 55, 100};
         int[] numsB = {5, 5, 5, 5, 1};
         int[] numsC = {100, 100, 100, 0};
-        //assert(Library.average(numsA) < 85.800001 && Library.average(numsA) > 85.79999);
+        //assert(sut.average(numsA) < 85.800001 && sut.average(numsA) > 85.79999);
         // I thought we might need to compare in this way based on lecture but the below tests passed np.
-        assert(Library.average(numsA) == 85.8);
-        assert(Library.average(numsB) == 4.2);
-        assert(Library.average(numsC) == 75.0);
+        assert(sut.average(numsA) == 85.8);
+        assert(sut.average(numsB) == 4.2);
+        assert(sut.average(numsC) == 75.0);
     }
 
     @Test
     void test_lowest_average() {
+        Library sut = new Library();
         int[][] weeklyMonthTemperatures = {
                 {66, 64, 58, 65, 71, 57, 60},
                 {57, 65, 65, 70, 72, 65, 51},
@@ -59,7 +63,7 @@ class LibraryTest {
                 {98, 96, 100, 95, 95, 92, 100, 88},
                 {12, 41, 11, 0, 22, 39, 24, 12, 44, 12, 89} // lowest average
         };
-        assert(Library.lowestAverage(weeklyMonthTemperatures) == weeklyMonthTemperatures[2]);
-        assert(Library.lowestAverage(studentGrades) == studentGrades[4]);
+        assert(sut.lowestAverage(weeklyMonthTemperatures) == weeklyMonthTemperatures[2]);
+        assert(sut.lowestAverage(studentGrades) == studentGrades[4]);
     }
 }

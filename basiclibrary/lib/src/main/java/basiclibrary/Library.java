@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class Library {
-    public static int[] roll(int n) {
+    public int[] roll(int n) {
         int[] output = new int[n];
         Random rand = new Random();
         for(int i = 0; i < n; i++) {
@@ -16,7 +16,7 @@ public class Library {
         return output;
     }
 
-    public static boolean containsDuplicates(int[] arr) {
+    public boolean containsDuplicates(int[] arr) {
         for(int i = 0; i < arr.length - 1; i++) {
             for (int j = i + 1; j < arr.length; j++) {
                 if (arr[i] == arr[j])
@@ -26,19 +26,19 @@ public class Library {
         return false;
     }
 
-    public static double average(int[] arr) {
+    public double average(int[] arr) {
         int sum = 0;
         for (int element : arr)
             sum += element;
         return (double) sum / arr.length;
     }
 
-    public static int[] lowestAverage(int[][] arr) {
+    public int[] lowestAverage(int[][] arr) {
         int index = 0;
-        double lowestAverage = Library.average(arr[0]);
+        double lowestAverage = average(arr[0]);
         double currentAverage = lowestAverage;
         for (int i = 0; i < arr.length; i++) {
-            currentAverage = Library.average(arr[i]);
+            currentAverage = average(arr[i]);
             if (currentAverage < lowestAverage) {
                 lowestAverage = currentAverage;
                 index = i;
