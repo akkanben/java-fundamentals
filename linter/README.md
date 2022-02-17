@@ -13,7 +13,5 @@ If run directly the linter app will process the file `app/src/main/resources/gat
 
 **Command line argument instructions:**
 
-1. Navigate to `app/src/main/java/liner/`.
-2. Run with `java App.java path/to/your/file.js`
-
-Alternatively the full path to your file can be provied as a command line argument within Intellij IDEA.
+- `./gradlew run --args path/to/your/file.js` 
+- Alternatively the full path to your file can be provied as a command line argument within Intellij IDEA.

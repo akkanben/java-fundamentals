@@ -15,7 +15,7 @@ public class App {
         if (args.length > 0)
             fileToProcess = Paths.get(args[0]).toAbsolutePath();
         else
-            fileToProcess = Paths.get("./app/src/main/resources/gates.js");
+            fileToProcess = Paths.get("src/main/resources/gates.js");
         lintJavaScriptFile(fileToProcess);
     }
 
