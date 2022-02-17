@@ -3,9 +3,7 @@
  */
 package basiclibrary;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Random;
+import java.util.*;
 
 public class Library {
 
@@ -65,6 +63,7 @@ public class Library {
                uniqueTemperaturesSet.add(arr[i][j]);
             }
         }
+        System.out.println("\n~~ Analyzing Weather Data ~~");
         System.out.println("High: " + highTemp);
         System.out.println("Low: " + lowTemp);
         for (int i = lowTemp; i <= highTemp; i++) {
@@ -74,6 +73,29 @@ public class Library {
                 System.out.println("Never saw temperature: " + i);
         }
         return output;
+    }
+
+    public String tally(List<String> votesList) {
+       String winner = "";
+       Map<String, Integer> votesCountMap = new HashMap<>();
+       Set<String> uniqueVotesSet = new HashSet<>();
+       for(String vote : votesList) {
+           if (votesCountMap.containsKey(vote)) {
+               int currentTally = votesCountMap.get(vote);
+               votesCountMap.replace(vote, currentTally + 1);
+           } else {
+              uniqueVotesSet.add(vote);
+              votesCountMap.put(vote, 1);
+           }
+       }
+       int highest = 0;
+       for(String vote : uniqueVotesSet) {
+           if (votesCountMap.get(vote) > highest) {
+               highest = votesCountMap.get(vote);
+               winner = vote;
+           }
+       }
+       return winner;
     }
 
 }
