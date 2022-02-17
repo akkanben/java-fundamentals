@@ -66,4 +66,16 @@ class LibraryTest {
         assert(sut.lowestAverage(weeklyMonthTemperatures) == weeklyMonthTemperatures[2]);
         assert(sut.lowestAverage(studentGrades) == studentGrades[4]);
     }
+
+    @Test
+    void test_findMissingTemperatures() {
+        Library sut = new Library();
+        int[][] weeklyMonthTemperatures = {
+                {66, 64, 58, 65, 71, 57, 60},
+                {57, 65, 65, 70, 72, 65, 51},
+                {55, 54, 60, 53, 59, 57, 61}, // lowest at 57
+                {65, 56, 55, 52, 55, 62, 57}
+        };
+        assert(sut.findMissingTemperatures(weeklyMonthTemperatures).equals("51 52 53 54 55 56 57 58 59 60 61 62 64 65 66 70 71 72 "));
+    }
 }

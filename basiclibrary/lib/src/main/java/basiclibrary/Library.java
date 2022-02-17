@@ -4,9 +4,12 @@
 package basiclibrary;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Random;
 
 public class Library {
+
+    // LAB 02
     public int[] roll(int n) {
         int[] output = new int[n];
         Random rand = new Random();
@@ -46,4 +49,31 @@ public class Library {
         }
         return arr[index];
     }
+
+    // LAB 3
+    public String findMissingTemperatures(int[][] arr) {
+        String output = "";
+        int highTemp = arr[0][0];
+        int lowTemp = arr[0][0];
+        HashSet<Integer> uniqueTemperaturesSet = new HashSet<>();
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+               if (arr[i][j] > highTemp)
+                   highTemp = arr[i][j];
+               if (arr[i][j] < lowTemp)
+                   lowTemp = arr[i][j];
+               uniqueTemperaturesSet.add(arr[i][j]);
+            }
+        }
+        System.out.println("High: " + highTemp);
+        System.out.println("Low: " + lowTemp);
+        for (int i = lowTemp; i <= highTemp; i++) {
+            if (uniqueTemperaturesSet.contains(i))
+                output += i + " ";
+            else
+                System.out.println("Never saw temperature: " + i);
+        }
+        return output;
+    }
+
 }
