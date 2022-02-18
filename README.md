@@ -22,6 +22,8 @@ To Use:
   - "grayscale" to remove color data.
   - "invert" to invert the image to resemble a negative.
   - "randomize" to give each pixel a random color.
+  - "mirror-h" to mirror the image horizontally.
+  - "mirror-v" to mirror the image vertically.
 3. Apply the transform to the output file you specify (.bmp) with `./gradlew run --args "baldy-8bit.bmp out.bmp grayscale"`.
 4. The transformed image can be found in the same resources folder that the input file was placed.
 
