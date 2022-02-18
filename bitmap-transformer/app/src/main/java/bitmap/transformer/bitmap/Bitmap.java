@@ -9,7 +9,6 @@ import java.util.Random;
 
 public class Bitmap {
 
-
     BufferedImage inputBufferedImage;
     BufferedImage outputBufferedImage;
     int width;
@@ -28,7 +27,7 @@ public class Bitmap {
         return outputBufferedImage;
     }
 
-    public void grayScale(){
+    public void grayScaleTransform(){
         for(int i = 0; i < width; i++){
             for (int j = 0; j < height; j++){
                 Color currentColor = new Color(inputBufferedImage.getRGB(i, j));
@@ -42,21 +41,20 @@ public class Bitmap {
         }
     }
 
-    public void invert(){
+    public void invertTransform(){
         for(int i = 0; i < width; i++){
             for (int j = 0; j < height; j++){
                 Color currentColor = new Color(inputBufferedImage.getRGB(i, j));
                 int r = 255 - currentColor.getRed();
                 int g = 255 - currentColor.getGreen();
                 int b = 255 - currentColor.getBlue();
-
                 Color newColor = new Color(r, g, b);
                 outputBufferedImage.setRGB(i, j, newColor.getRGB());
             }
         }
     }
 
-    public void randomize(){
+    public void randomizeTransform(){
         Random random = new Random();
 
         for(int i = 0; i < width; i++){
@@ -65,13 +63,11 @@ public class Bitmap {
                 int r = random.nextInt(0,256);
                 int g = random.nextInt(0,256);
                 int b = random.nextInt(0,256);
-
                 Color newColor = new Color(r, g, b);
                 outputBufferedImage.setRGB(i, j, newColor.getRGB());
             }
         }
     }
-
 
     public void copyImage(){
         for(int i = 0; i < width; i++){
@@ -82,9 +78,7 @@ public class Bitmap {
         }
     }
 
-
     public void writeOutImage(String outputPath){
-
         try {
             ImageIO.write(outputBufferedImage, "bmp", new File(outputPath));
         } catch (IOException ioe) {
