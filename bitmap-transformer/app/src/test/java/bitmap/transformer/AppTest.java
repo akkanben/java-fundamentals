@@ -12,50 +12,37 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class AppTest {
-    @Test
-    void testForFile(){
-        App sut = new App();
-    }
 
     @Test
     void testForGreyScale(){
-        App sut = new App();
-
         String userPath = System.getProperty("user.dir");
         System.out.println(userPath);
         String resourcesPath;
-        String testGrayFileName = "test-gray.bmp";
-        String fileName = "red_100x100.bmp";
+        String targetGrayFileName = "test-gray.bmp";
+        String inputFileName = "red_100x100.bmp";
         String outputFileName = "grey-output.bmp";
-
         if (userPath.endsWith("bitmap-transformer")) {
             resourcesPath = "app/src/test/resources/";
         } else {
             resourcesPath = "src/test/resources/";
         }
-
-        File testImage = new File(resourcesPath + fileName);
-        File testGrayFile = new File(resourcesPath + testGrayFileName);
-        BufferedImage img = null;
-        BufferedImage testGray = null;
-
+        File inputImageFile = new File(resourcesPath + inputFileName);
+        File targetGrayFile = new File(resourcesPath + targetGrayFileName);
+        BufferedImage inputBufferedImage = null;
+        BufferedImage targetGrayBufferedImage = null;
         try{
-            img = ImageIO.read(testImage);
-            testGray = ImageIO.read(testGrayFile);
-            Bitmap inputBitmap = new Bitmap(img);
-            inputBitmap.grayScale();
+            inputBufferedImage = ImageIO.read(inputImageFile);
+            targetGrayBufferedImage = ImageIO.read(targetGrayFile);
+            Bitmap inputBitmap = new Bitmap(inputBufferedImage);
+            inputBitmap.grayScaleTransform();
             inputBitmap.writeOutImage(resourcesPath + outputFileName);
-            Color outputColor = new Color(inputBitmap.getBufferedImage().getRGB(0, 0));
-            Color testGrayColor = new Color(testGray.getRGB(0, 0));
+            Color outputColor = new Color(inputBitmap.getOutputBufferedImage().getRGB(0, 0));
+            Color testGrayColor = new Color(targetGrayBufferedImage.getRGB(0, 0));
             assert(outputColor.getRed() == testGrayColor.getRed());
         } catch (IOException ioe) {
             ioe.printStackTrace();
             System.exit(1);
         }
     }
-
-
 }
