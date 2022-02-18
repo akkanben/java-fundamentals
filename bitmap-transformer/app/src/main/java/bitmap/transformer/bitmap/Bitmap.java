@@ -56,10 +56,8 @@ public class Bitmap {
 
     public void randomizeTransform(){
         Random random = new Random();
-
         for(int i = 0; i < width; i++){
             for (int j = 0; j < height; j++){
-                Color currentColor = new Color(inputBufferedImage.getRGB(i, j));
                 int r = random.nextInt(0,256);
                 int g = random.nextInt(0,256);
                 int b = random.nextInt(0,256);
@@ -69,11 +67,39 @@ public class Bitmap {
         }
     }
 
+    public void horizontalMirrorTransform() {
+        Color[][] pixelArray  = getPixelArray();
+        for(int row = 0; row < pixelArray.length; row++) {
+            int index = 0;
+            while(index++ < pixelArray[row].length / 2) {
+                Color[] currentRow = pixelArray[row];
+                Color temp = currentRow[index];
+                currentRow[index] = currentRow[currentRow.length - 1 - index];
+                currentRow[currentRow.length - 1 - index] = temp;
+            }
+        }
+        putPixelArray(pixelArray);
+    }
+
+    public void verticalMirrorTransform() {
+        Color[][] pixelArray  = getFlippedPixelArray();
+        for(int row = 0; row < pixelArray.length; row++) {
+            int index = 0;
+            while(index++ < pixelArray[row].length / 2) {
+                Color[] currentRow = pixelArray[row];
+                Color temp = currentRow[index];
+                currentRow[index] = currentRow[currentRow.length - 1 - index];
+                currentRow[currentRow.length - 1 - index] = temp;
+            }
+        }
+        putFlippedPixelArray(pixelArray);
+    }
+
     public void copyImage(){
         for(int i = 0; i < width; i++){
             for (int j = 0; j < height; j++){
-                Color c = new Color(inputBufferedImage.getRGB(i, j));
-                outputBufferedImage.setRGB(i, j, c.getRGB());
+                Color color = new Color(inputBufferedImage.getRGB(i, j));
+                outputBufferedImage.setRGB(i, j, color.getRGB());
             }
         }
     }
@@ -85,6 +111,43 @@ public class Bitmap {
             ioe.printStackTrace();
             System.out.println("This file cannot be scanned");
             System.exit(1);
+        }
+    }
+
+    //HELPER METHODS FOR RASTER DATA TRANSFORMS
+    public Color[][] getPixelArray() {
+       Color[][] pixelArray = new Color[height][width];
+        for(int i = 0; i < height; i++){
+            for (int j = 0; j < width; j++){
+                Color color = new Color(inputBufferedImage.getRGB(j, i));
+                pixelArray[i][j] = color;
+            }
+        }
+       return pixelArray;
+    }
+
+    public Color[][] getFlippedPixelArray() {
+        Color[][] pixelArray = new Color[width][height];
+        for(int i = 0; i < width; i++){
+            for (int j = 0; j < height; j++){
+                Color color = new Color(inputBufferedImage.getRGB(i, j));
+                pixelArray[i][j] = color;
+            }
+        }
+        return pixelArray;
+    }
+
+    public void putPixelArray(Color[][] pixelArray) {
+        for(int i = 0; i < height; i++){
+            for (int j = 0; j < width; j++)
+                outputBufferedImage.setRGB(j, i, pixelArray[i][j].getRGB());
+        }
+    }
+
+    public void putFlippedPixelArray(Color[][] pixelArray) {
+        for(int i = 0; i < width; i++){
+            for (int j = 0; j < height; j++)
+                outputBufferedImage.setRGB(i, j, pixelArray[i][j].getRGB());
         }
     }
 }
