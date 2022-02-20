@@ -37,34 +37,41 @@ public class App {
                 case "copy" -> {
                     System.out.println("Copying " + inputFileName + " to " + outputFileName);
                     bitmapToTransform.copyImage();
-                    System.out.println("Complete. " + outputFileName + " available in resources directory.");
                 }
                 case "grayscale" -> {
                     System.out.println("Transforming " + inputFileName + " to " + outputFileName + " in grayscale.");
                     bitmapToTransform.grayScaleTransform();
-                    System.out.println("Complete. " + outputFileName + " available in resources directory.");
+                }
+                case "darken" -> {
+                    System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by darkening the image.");
+                    bitmapToTransform.darkenTransform();
+                }
+                case "lighten" -> {
+                    System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by darkening the image.");
+                    bitmapToTransform.lightenTransform();
+                }
+                case "pixelate" -> {
+                    System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by pixelating the image.");
+                    bitmapToTransform.pixelateTransform();
                 }
                 case "invert" -> {
                     System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by inverting the color.");
                     bitmapToTransform.invertTransform();
-                    System.out.println("Complete. " + outputFileName + " available in resources directory.");
                 }
                 case "randomize" -> {
                     System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by randomizing each pixel color.");
                     bitmapToTransform.randomizeTransform();
-                    System.out.println("Complete. " + outputFileName + " available in resources directory.");
                 }
                 case "mirror-h" -> {
                     System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by mirroring horizontally.");
                     bitmapToTransform.horizontalMirrorTransform();
-                    System.out.println("Complete. " + outputFileName + " available in resources directory.");
                 }
                 case "mirror-v" -> {
                     System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by mirroring vertically.");
                     bitmapToTransform.verticalMirrorTransform();
-                    System.out.println("Complete. " + outputFileName + " available in resources directory.");
                 }
             }
+            System.out.println("Complete. " + outputFileName + " available in resources directory.");
             bitmapToTransform.writeOutImage(resourcesPath + outputFileName);
         } catch (IOException ioe) {
             ioe.printStackTrace();
