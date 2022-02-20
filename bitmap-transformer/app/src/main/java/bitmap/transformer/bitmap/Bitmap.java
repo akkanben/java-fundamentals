@@ -127,6 +127,22 @@ public class Bitmap {
         }
     }
 
+    public void pixelateTransform(){
+        Color color = new Color(0, 0, 0);
+        for(int i = 0; i < height; i += 2){
+            for (int j = 0; j < width; j += 2) {
+                color = new Color(inputBufferedImage.getRGB(j, i));
+                outputBufferedImage.setRGB(j, i, color.getRGB());
+                if (j + 1 < width && i + 1 < height)
+                    outputBufferedImage.setRGB(j + 1, i + 1, color.getRGB());
+                if (j + 1 < width)
+                    outputBufferedImage.setRGB(j + 1, i, color.getRGB());
+                if (i + 1 < height)
+                    outputBufferedImage.setRGB(j, i + 1, color.getRGB());
+            }
+        }
+    }
+
     public void horizontalMirrorTransform() {
         Color[][] pixelArray  = getPixelArray();
         for(int row = 0; row < pixelArray.length; row++) {

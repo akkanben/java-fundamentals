@@ -62,6 +62,10 @@ public class App {
                     System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by multiplying the image hue with red.");
                     bitmapToTransform.hueMultiplyTransform(2);
                 }
+                case "pixelate" -> {
+                    System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by pixelating the image.");
+                    bitmapToTransform.pixelateTransform();
+                }
                 case "invert" -> {
                     System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by inverting the color.");
                     bitmapToTransform.invertTransform();
