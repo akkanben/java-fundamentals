@@ -53,6 +53,7 @@ public class Bitmap {
             }
         }
     }
+
     public void darkenTransform(){
         for(int i = 0; i < width; i++){
             for (int j = 0; j < height; j++){
@@ -65,6 +66,28 @@ public class Bitmap {
                     rgb[rgbIndex] -= 40;
                     if (rgb[rgbIndex] < 0)
                         rgb[rgbIndex] = 0;
+                }
+                Color newColor = new Color(rgb[0], rgb[1], rgb[2]);
+                outputBufferedImage.setRGB(i, j, newColor.getRGB());
+            }
+        }
+    }
+
+    // 0=red, 1=blue, 2=green for hue value
+    public void hueMultiplyTransform(int hue){
+        for(int i = 0; i < width; i++){
+            for (int j = 0; j < height; j++){
+                Color currentColor = new Color(inputBufferedImage.getRGB(i, j));
+                int[] rgb = new int[3];
+                rgb[0] = currentColor.getRed();
+                rgb[1] = currentColor.getGreen();
+                rgb[2] = currentColor.getBlue();
+                for(int rgbIndex = 0; rgbIndex < rgb.length; rgbIndex++) {
+                    if (rgbIndex != hue) {
+                        rgb[rgbIndex] /= 2;
+                        if (rgb[rgbIndex] < 0)
+                            rgb[rgbIndex] = 0;
+                    }
                 }
                 Color newColor = new Color(rgb[0], rgb[1], rgb[2]);
                 outputBufferedImage.setRGB(i, j, newColor.getRGB());

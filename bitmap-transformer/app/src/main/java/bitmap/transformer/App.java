@@ -50,6 +50,18 @@ public class App {
                     System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by darkening the image.");
                     bitmapToTransform.lightenTransform();
                 }
+                case "r-multiply" -> {
+                    System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by multiplying the image hue with red.");
+                    bitmapToTransform.hueMultiplyTransform(0);
+                }
+                case "g-multiply" -> {
+                    System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by multiplying the image hue with red.");
+                    bitmapToTransform.hueMultiplyTransform(1);
+                }
+                case "b-multiply" -> {
+                    System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by multiplying the image hue with red.");
+                    bitmapToTransform.hueMultiplyTransform(2);
+                }
                 case "invert" -> {
                     System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by inverting the color.");
                     bitmapToTransform.invertTransform();
