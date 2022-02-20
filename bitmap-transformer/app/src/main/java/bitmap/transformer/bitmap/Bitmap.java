@@ -54,6 +54,66 @@ public class Bitmap {
         }
     }
 
+    public void darkenTransform(){
+        for(int i = 0; i < width; i++){
+            for (int j = 0; j < height; j++){
+                Color currentColor = new Color(inputBufferedImage.getRGB(i, j));
+                int[] rgb = new int[3];
+                rgb[0] = currentColor.getRed();
+                rgb[1] = currentColor.getGreen();
+                rgb[2] = currentColor.getBlue();
+                for(int rgbIndex = 0; rgbIndex < rgb.length; rgbIndex++) {
+                    rgb[rgbIndex] -= 40;
+                    if (rgb[rgbIndex] < 0)
+                        rgb[rgbIndex] = 0;
+                }
+                Color newColor = new Color(rgb[0], rgb[1], rgb[2]);
+                outputBufferedImage.setRGB(i, j, newColor.getRGB());
+            }
+        }
+    }
+
+    // 0=red, 1=blue, 2=green for hue value
+    public void hueMultiplyTransform(int hue){
+        for(int i = 0; i < width; i++){
+            for (int j = 0; j < height; j++){
+                Color currentColor = new Color(inputBufferedImage.getRGB(i, j));
+                int[] rgb = new int[3];
+                rgb[0] = currentColor.getRed();
+                rgb[1] = currentColor.getGreen();
+                rgb[2] = currentColor.getBlue();
+                for(int rgbIndex = 0; rgbIndex < rgb.length; rgbIndex++) {
+                    if (rgbIndex != hue) {
+                        rgb[rgbIndex] /= 2;
+                        if (rgb[rgbIndex] < 0)
+                            rgb[rgbIndex] = 0;
+                    }
+                }
+                Color newColor = new Color(rgb[0], rgb[1], rgb[2]);
+                outputBufferedImage.setRGB(i, j, newColor.getRGB());
+            }
+        }
+    }
+
+    public void lightenTransform(){
+        for(int i = 0; i < width; i++){
+            for (int j = 0; j < height; j++){
+                Color currentColor = new Color(inputBufferedImage.getRGB(i, j));
+                int[] rgb = new int[3];
+                rgb[0] = currentColor.getRed();
+                rgb[1] = currentColor.getGreen();
+                rgb[2] = currentColor.getBlue();
+                for(int rgbIndex = 0; rgbIndex < rgb.length; rgbIndex++) {
+                    rgb[rgbIndex] += 40;
+                    if (rgb[rgbIndex] > 255)
+                        rgb[rgbIndex] = 255;
+                }
+                Color newColor = new Color(rgb[0], rgb[1], rgb[2]);
+                outputBufferedImage.setRGB(i, j, newColor.getRGB());
+            }
+        }
+    }
+
     public void randomizeTransform(){
         Random random = new Random();
         for(int i = 0; i < width; i++){
@@ -63,6 +123,22 @@ public class Bitmap {
                 int b = random.nextInt(0,256);
                 Color newColor = new Color(r, g, b);
                 outputBufferedImage.setRGB(i, j, newColor.getRGB());
+            }
+        }
+    }
+
+    public void pixelateTransform(){
+        Color color = new Color(0, 0, 0);
+        for(int i = 0; i < height; i += 2){
+            for (int j = 0; j < width; j += 2) {
+                color = new Color(inputBufferedImage.getRGB(j, i));
+                outputBufferedImage.setRGB(j, i, color.getRGB());
+                if (j + 1 < width && i + 1 < height)
+                    outputBufferedImage.setRGB(j + 1, i + 1, color.getRGB());
+                if (j + 1 < width)
+                    outputBufferedImage.setRGB(j + 1, i, color.getRGB());
+                if (i + 1 < height)
+                    outputBufferedImage.setRGB(j, i + 1, color.getRGB());
             }
         }
     }
@@ -93,6 +169,16 @@ public class Bitmap {
             }
         }
         putFlippedPixelArray(pixelArray);
+    }
+
+    public void addBorderTransform(int borderThickness){
+        outputBufferedImage = new BufferedImage(width + borderThickness * 2, height + borderThickness * 2, type);
+        for(int i = borderThickness; i < width + borderThickness; i++){
+            for (int j = borderThickness; j < height + borderThickness; j++){
+                Color color = new Color(inputBufferedImage.getRGB(i - borderThickness, j - borderThickness));
+                outputBufferedImage.setRGB(i, j, color.getRGB());
+            }
+        }
     }
 
     public void copyImage(){
