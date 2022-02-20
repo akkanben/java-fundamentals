@@ -171,6 +171,16 @@ public class Bitmap {
         putFlippedPixelArray(pixelArray);
     }
 
+    public void addBorderTransform(int borderThickness){
+        outputBufferedImage = new BufferedImage(width + borderThickness * 2, height + borderThickness * 2, type);
+        for(int i = borderThickness; i < width + borderThickness; i++){
+            for (int j = borderThickness; j < height + borderThickness; j++){
+                Color color = new Color(inputBufferedImage.getRGB(i - borderThickness, j - borderThickness));
+                outputBufferedImage.setRGB(i, j, color.getRGB());
+            }
+        }
+    }
+
     public void copyImage(){
         for(int i = 0; i < width; i++){
             for (int j = 0; j < height; j++){

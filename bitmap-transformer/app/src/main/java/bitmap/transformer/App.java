@@ -82,6 +82,10 @@ public class App {
                     System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by mirroring vertically.");
                     bitmapToTransform.verticalMirrorTransform();
                 }
+                case "border" -> {
+                    System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by adding a 20px border.");
+                    bitmapToTransform.addBorderTransform(20);
+                }
             }
             System.out.println("Transform complete, " + outputFileName + " available in resources directory.");
             bitmapToTransform.writeOutImage(resourcesPath + outputFileName);
