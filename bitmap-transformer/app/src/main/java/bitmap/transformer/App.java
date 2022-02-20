@@ -42,6 +42,14 @@ public class App {
                     System.out.println("Transforming " + inputFileName + " to " + outputFileName + " in grayscale.");
                     bitmapToTransform.grayScaleTransform();
                 }
+                case "darken" -> {
+                    System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by darkening the image.");
+                    bitmapToTransform.darkenTransform();
+                }
+                case "lighten" -> {
+                    System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by darkening the image.");
+                    bitmapToTransform.lightenTransform();
+                }
                 case "invert" -> {
                     System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by inverting the color.");
                     bitmapToTransform.invertTransform();
