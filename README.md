@@ -27,3 +27,10 @@ To Use:
 3. Apply the transform to the output file you specify (.bmp) with `./gradlew run --args "baldy-8bit.bmp out.bmp grayscale"`.
 4. The transformed image can be found in the same resources folder that the input file was placed.
 
+## Lab 05 -- Composition and Inheritance, Part 1
+
+The inheritance library contains a restaurant package and review package that can be used together to create Restaurant objects and Review objects. The RestaurantReview object is a subclass of Review and requires a Restaurant object for instantiation. RestaurantReview objects can be added to Restaurant objects and the Restaurant objects rating will adjust when added and multiple reviews will average.
+
+The star review system in place has a range of 0 to 5 stars. There is also a price score that is in the range of 0 to 3 (inexpensive to expensive).
+
+Testing: run `./gradlew test` from the `inheritance` directory.
