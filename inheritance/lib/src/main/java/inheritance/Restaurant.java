@@ -44,8 +44,19 @@ public class Restaurant {
     }
 
     public void addReview(RestaurantReview review) {
-        reviews.add(review);
-        reviewCount++;
+        if(!reviews.contains(review)) {
+            reviews.add(review);
+            reviewCount++;
+            setStarScore(getAverageReviewStarScore(reviews));
+        }
+    }
+
+    private int getAverageReviewStarScore(ArrayList<RestaurantReview> list) {
+        int sum = 0;
+       for(RestaurantReview element : list) {
+          sum += element.getStarScore();
+       }
+       return sum / list.size();
     }
 
     public int getReviewCount() {

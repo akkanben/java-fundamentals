@@ -27,4 +27,29 @@ public class RestaurantTest {
         assert(sutA.getReviewCount() == 1);
     }
 
+    @Test
+    void test_addreview_multiple_same_review() {
+        Restaurant sutA = new Restaurant("Dick's",1);
+        RestaurantReview sutB = new RestaurantReview(sutA,"Reviewer Reviewsalot", 3, "Hamburgers!");
+        sutA.addReview(sutB);
+        assert(sutA.getReviewCount() == 1);
+        sutA.addReview(sutB);
+        assert(sutA.getReviewCount() == 1);
+    }
+
+    @Test
+    void test_getaveragereviewstarscore() {
+        Restaurant sutA = new Restaurant("Dick's",1);
+        RestaurantReview sutB = new RestaurantReview(sutA,"Reviewer Reviewsalot", 3, "Hamburgers!");
+        RestaurantReview sutC = new RestaurantReview(sutA,"Hamburger Helper", 1, "Meh.");
+        RestaurantReview sutD = new RestaurantReview(sutA,"The Hamburgler", 3, "Yum!");
+        sutA.addReview(sutB);
+        assert(sutA.getStarScore() == 3);
+        sutA.addReview(sutC);
+        assert(sutA.getStarScore() == 2);
+        sutA.addReview(sutD);
+        assert(sutA.getStarScore() == 2);
+
+    }
+
 }
