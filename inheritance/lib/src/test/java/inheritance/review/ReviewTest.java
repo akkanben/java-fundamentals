@@ -15,8 +15,9 @@ public class ReviewTest {
 
     @Test
     void test_review_toString() {
-        Restaurant sutA = new Restaurant("Dick's", 4, 1);
-        RestaurantReview sutB = new RestaurantReview(sutA,"Person McPersonface", 2, "This is my opinion.");
-        assert(sutB.toString().equals("{ restaurant: Dick's, author: Person McPersonface, score: 2, review: This is my opinion. }"));
+        Review sut = new Review("Person McPersonface", 2, "This is my opinion.");
+        assert(sut.toString().equals("{ author: Person McPersonface, score: 2, review: This is my opinion. }"));
     }
+
+
 }
