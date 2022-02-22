@@ -11,6 +11,12 @@ public class RestaurantReview extends Review {
     }
 
     @Override
+    public void updateStars(int starScore) {
+        restaurant.updateReviewStars(author, starScore);
+        this.setStarScore(starScore);
+    }
+
+    @Override
     public String toString() {
         return "{ restaurant: " + restaurant.getName() + ", author: " + author + ", score: " + getStarScore() + ", review: " + body + " }";
     }

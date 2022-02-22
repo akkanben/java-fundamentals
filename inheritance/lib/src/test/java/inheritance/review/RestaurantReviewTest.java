@@ -21,4 +21,15 @@ public class RestaurantReviewTest {
         RestaurantReview sutB = new RestaurantReview(sutA,"Person McPersonface", 2, "This is my opinion.");
         assert(sutB.toString().equals("{ restaurant: Dick's, author: Person McPersonface, score: 2, review: This is my opinion. }"));
     }
+
+    @Test
+    void test_updatestars() {
+        Restaurant sutA = new Restaurant("Dick's",1);
+        RestaurantReview sutB = new RestaurantReview(sutA,"Person McPersonface", 2, "This is my opinion.");
+        sutA.addReview(sutB);
+        assert(sutA.getStarScore() == 2);
+        sutB.updateStars(5);
+        assert(sutA.getStarScore() == 5);
+
+    }
 }

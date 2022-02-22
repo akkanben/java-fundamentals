@@ -1,9 +1,7 @@
 package inheritance.restaurant;
 
 import inheritance.review.RestaurantReview;
-import inheritance.review.Review;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Restaurant{
@@ -49,6 +47,14 @@ public class Restaurant{
             reviewCount++;
             setStarScore(getAverageReviewStarScore(reviews));
         }
+    }
+
+    public void updateReviewStars(String author, int newStars) {
+        for(RestaurantReview element : reviews) {
+            if(element.getAuthor().equals(author))
+                reviews.get(0).setStarScore(newStars);
+        }
+        this.starScore = newStars;
     }
 
     private int getAverageReviewStarScore(ArrayList<RestaurantReview> list) {
