@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class Restaurant{
     private final String name;
-    private int starScore = 0;
     private int priceScore;
     private int reviewCount = 0;
     private ArrayList<RestaurantReview> reviews;
@@ -22,22 +21,19 @@ public class Restaurant{
     }
 
     public int getStarScore() {
-        return starScore;
+        if(reviews.size() > 0)
+            return getAverageReviewStarScore(reviews);
+        else
+            return 0;
     }
 
     public int getPriceScore() {
         return priceScore;
     }
 
-    private void setStarScore(int starScore) {
-       if(starScore < 0 || starScore > 5)
-           throw new IllegalArgumentException("Star score " + starScore + " out of range.");
-       this.starScore = starScore;
-    }
-
     public void setPriceScore(int priceScore) {
         if(priceScore < 0 || priceScore > 3)
-            throw new IllegalArgumentException("Star score " + starScore + " out of range.");
+            throw new IllegalArgumentException("Star score " + getStarScore() + " out of range.");
         this.priceScore = priceScore;
     }
 
@@ -45,7 +41,6 @@ public class Restaurant{
         if(!reviews.contains(review)) {
             reviews.add(review);
             reviewCount++;
-            setStarScore(getAverageReviewStarScore(reviews));
         }
     }
 
@@ -54,7 +49,6 @@ public class Restaurant{
             if(element.getAuthor().equals(author))
                 reviews.get(0).setStarScore(newStars);
         }
-        this.starScore = newStars;
     }
 
     private int getAverageReviewStarScore(ArrayList<RestaurantReview> list) {
@@ -71,7 +65,7 @@ public class Restaurant{
 
     @Override
     public String toString() {
-        return "{ name: " + name + ", stars: " + starScore + ", price: " + priceScore + " }";
+        return "{ name: " + name + ", stars: " + getStarScore() + ", price: " + priceScore + " }";
     }
 
 
