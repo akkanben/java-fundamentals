@@ -1,4 +1,6 @@
-package inheritance;
+package inheritance.review;
+
+import inheritance.Restaurant;
 
 public class Review {
     String author;
@@ -15,6 +17,10 @@ public class Review {
         if(starScore < 0 || starScore > 5)
             throw new IllegalArgumentException("Star score " + starScore + " out of range.");
         this.starScore = starScore;
+    }
+
+    public int getStarScore() {
+        return starScore;
     }
 
     @Override

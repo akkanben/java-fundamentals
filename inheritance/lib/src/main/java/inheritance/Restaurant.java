@@ -1,5 +1,10 @@
 package inheritance;
 
+import inheritance.review.Review;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class Restaurant {
     private final String name;
     private int starScore;
