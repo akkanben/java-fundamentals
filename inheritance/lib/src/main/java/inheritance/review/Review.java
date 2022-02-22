@@ -1,7 +1,5 @@
 package inheritance.review;
 
-import inheritance.Restaurant;
-
 public class Review {
     String author;
     private int starScore;

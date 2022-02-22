@@ -1,7 +1,7 @@
-package inheritance;
+package inheritance.restaurant;
 
+import inheritance.restaurant.Restaurant;
 import inheritance.review.RestaurantReview;
-import inheritance.review.Review;
 import org.junit.jupiter.api.Test;
 
 public class RestaurantTest {

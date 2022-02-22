@@ -1,4 +1,4 @@
-package inheritance;
+package inheritance.restaurant;
 
 import inheritance.review.RestaurantReview;
 import inheritance.review.Review;
@@ -6,7 +6,7 @@ import inheritance.review.Review;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class Restaurant {
+public class Restaurant{
     private final String name;
     private int starScore = 0;
     private int priceScore;

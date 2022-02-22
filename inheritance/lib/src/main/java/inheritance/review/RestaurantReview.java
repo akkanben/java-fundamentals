@@ -1,6 +1,6 @@
 package inheritance.review;
 
-import inheritance.Restaurant;
+import inheritance.restaurant.Restaurant;
 
 public class RestaurantReview extends Review {
     Restaurant restaurant;
