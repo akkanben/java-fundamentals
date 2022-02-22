@@ -29,8 +29,17 @@ To Use:
 
 ## Lab 05 -- Composition and Inheritance, Part 1
 
-The inheritance library contains a restaurant package and review package that can be used together to create Restaurant objects and Review objects. The RestaurantReview object is a subclass of Review and requires a Restaurant object for instantiation. RestaurantReview objects can be added to Restaurant objects and the Restaurant objects rating will adjust when added and multiple reviews will average.
+The inheritance library contains a restaurant package and review package that can be used together to create Restaurant objects and Review objects. 
 
-The star review system in place has a range of 0 to 5 stars. There is also a price score that is in the range of 0 to 3 (inexpensive to expensive).
+- The star review system in place has a range of 0 to 5 stars. 
+- There is also a price score that is in the range of 0 to 3 (inexpensive to expensive).
 
-Testing: run `./gradlew test` from the `inheritance` directory.
+The Restaurant class has a list of its RestaurantReview objects. If a Restaurant object's star review score is requested the average score is calculated based on what is in the list of RestaurantReview objects.
+
+The RestaurantReview object is a subclass of Review and requires a Restaurant object for instantiation. When the RestaurantReview object is created it is added to the Restaurant object's list of reviews and if the RestaurantReview object is updated (star score) it will be reflected in the Restaurant object's list and the Restaurant object's total rating.
+
+
+Testing:
+
+- The classes in the restaurant and review packages have corresponding tests files and individual tests for the methods of the classes.
+- run `./gradlew test` from the `inheritance` directory.
