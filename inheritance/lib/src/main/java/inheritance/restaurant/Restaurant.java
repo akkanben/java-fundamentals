@@ -8,7 +8,7 @@ public class Restaurant{
     private final String name;
     private int priceScore;
     private int reviewCount = 0;
-    private ArrayList<RestaurantReview> reviews;
+    private final ArrayList<RestaurantReview> reviews;
 
     public Restaurant(String name, int priceScore) {
         this.name = name;
@@ -47,7 +47,7 @@ public class Restaurant{
     public void updateReviewStars(String author, int newStars) {
         for(RestaurantReview element : reviews) {
             if(element.getAuthor().equals(author))
-                reviews.get(0).setStarScore(newStars);
+                element.setStarScore(newStars);
         }
     }
 

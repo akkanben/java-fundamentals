@@ -68,12 +68,30 @@ public class RestaurantTest {
     }
 
     @Test
-    void test_updatereviewstars() {
+    void test_updatereviewstars_single_review() {
         Restaurant sutA = new Restaurant("Dick's",1);
         RestaurantReview sutB = new RestaurantReview(sutA,"Reviewer Reviewsalot", 3, "Hamburgers!");
         sutA.addReview(sutB);
         sutA.updateReviewStars(sutB.getAuthor(), 1);
         assert(sutA.getStarScore() == 1);
+    }
+
+    @Test
+    void test_updatereviewstars_multiple() {
+        Restaurant sutA = new Restaurant("Dick's",1);
+        RestaurantReview sutB = new RestaurantReview(sutA,"Reviewer Reviewsalot", 1, "Hamburgers!");
+        RestaurantReview sutC = new RestaurantReview(sutA,"Hamburger Helper", 3, "Meh.");
+        RestaurantReview sutD = new RestaurantReview(sutA,"The Hamburgler", 3, "Yum!");
+        sutA.addReview(sutB);
+        sutA.addReview(sutC);
+        sutA.addReview(sutC);
+        System.out.println(sutA);
+        sutA.updateReviewStars(sutC.getAuthor(), 1);
+        System.out.println(sutA);
+        assert(sutA.getStarScore() == 1);
+        sutA.updateReviewStars(sutC.getAuthor(), 3);
+        sutA.updateReviewStars(sutB.getAuthor(), 3);
+        assert(sutA.getStarScore() == 3);
     }
 
     @Test
