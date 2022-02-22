@@ -18,8 +18,6 @@ public class Review {
     }
 
     public void setStarScore(int starScore) {
-        if(starScore < 0 || starScore > 5)
-            throw new IllegalArgumentException("Star score " + starScore + " out of range.");
         this.starScore = starScore;
     }
 
@@ -28,7 +26,9 @@ public class Review {
     }
 
     public void updateStars(int starScore) {
-       this.starScore = starScore;
+        if(starScore < 0 || starScore > 5)
+            throw new IllegalArgumentException("Star score " + starScore + " out of range.");
+        setStarScore(starScore);
     }
 
     @Override

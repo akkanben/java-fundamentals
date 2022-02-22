@@ -12,6 +12,8 @@ public class RestaurantReview extends Review {
 
     @Override
     public void updateStars(int starScore) {
+        if(starScore < 0 || starScore > 5)
+            throw new IllegalArgumentException("Star score " + starScore + " out of range.");
         restaurant.updateReviewStars(author, starScore);
         this.setStarScore(starScore);
     }

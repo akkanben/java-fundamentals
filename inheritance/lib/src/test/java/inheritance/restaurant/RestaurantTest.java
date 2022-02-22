@@ -1,8 +1,9 @@
 package inheritance.restaurant;
 
-import inheritance.restaurant.Restaurant;
 import inheritance.review.RestaurantReview;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RestaurantTest {
 
@@ -17,6 +18,21 @@ public class RestaurantTest {
     void test_restaurant_tostring() {
         Restaurant sut = new Restaurant("Dick's",1);
         assert(sut.toString().equals("{ name: Dick's, stars: 0, price: 1 }"));
+    }
+
+    @Test
+    void test_setpricescore_valid() {
+       Restaurant sut = new Restaurant("Judy Fu's Snappy Dragon", 1);
+       assert(sut.getPriceScore() == 1);
+       sut.setPriceScore(3);
+       assert(sut.getPriceScore() == 3);
+    }
+
+    @Test
+    void test_setpricescore_invalid() {
+        Restaurant sut = new Restaurant("Judy Fu's Snappy Dragon", 1);
+        assertThrows(IllegalArgumentException.class, () -> sut.setPriceScore(-1));
+        assertThrows(IllegalArgumentException.class, () -> sut.setPriceScore(4));
     }
 
     @Test
@@ -49,7 +65,37 @@ public class RestaurantTest {
         assert(sutA.getStarScore() == 2);
         sutA.addReview(sutD);
         assert(sutA.getStarScore() == 2);
+    }
+
+    @Test
+    void test_updatereviewstars() {
+        Restaurant sutA = new Restaurant("Dick's",1);
+        RestaurantReview sutB = new RestaurantReview(sutA,"Reviewer Reviewsalot", 3, "Hamburgers!");
+        sutA.addReview(sutB);
+        sutA.updateReviewStars(sutB.getAuthor(), 1);
+        assert(sutA.getStarScore() == 1);
+    }
+
+    @Test
+    void test_getstarscore_empty() {
+        Restaurant sut = new Restaurant("Dick's",1);
+        assert(sut.getStarScore() == 0);
+    }
+
+    @Test
+    void test_getstarscore_multiple() {
+        Restaurant sutA = new Restaurant("Dick's",1);
+        RestaurantReview sutB = new RestaurantReview(sutA,"Reviewer Reviewsalot", 3, "Hamburgers!");
+        sutA.addReview(sutB);
+        RestaurantReview sutC = new RestaurantReview(sutA,"Hamburger Helper", 1, "Meh.");
+        sutA.addReview(sutC);
+        RestaurantReview sutD = new RestaurantReview(sutA,"The Hamburgler", 3, "Yum!");
+        sutA.addReview(sutD);
+        assert(sutA.getStarScore() == 2);
+        sutC.updateStars(3);
+        assert(sutA.getStarScore() == 3);
 
     }
+
 
 }
