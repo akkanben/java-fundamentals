@@ -3,6 +3,8 @@
  */
 package bitmapTransformer;
 
+import bitmapTransformer.bitmap.Bitmap;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -33,24 +35,8 @@ public class App {
             resourcesPath = "src/main/resources/";
         }
         File inputImageFile = new File(resourcesPath + inputFileName);
-        try {
-            //Bitmap bitmapToTransform = new Bitmap(inputImageFile);
-            InputStream is = new FileInputStream(inputImageFile);
-            byte[] imageByteArray = is.readAllBytes();
-            System.out.println(Arrays.toString(imageByteArray));
-            int size = 0;
-            for(byte b : imageByteArray) {
-                System.out.print(size + "> " + Integer.toHexString(b) + " : ");
-                size++;
-            }
-            System.out.println("\n" + size + " is the header length");
-            System.out.println(inputImageFile.length());
-            System.out.println("Transform complete, " + outputFileName + " available in resources directory.");
-            //bitmapToTransform.writeOutImage(resourcesPath + outputFileName);
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-            System.exit(1);
-        }
-
+        Bitmap bitmapToTransform = new Bitmap(inputImageFile);
+        System.out.println("Transform complete, " + outputFileName + " available in resources directory.");
+        //bitmapToTransform.writeOutImage(resourcesPath + outputFileName);
     }
 }
