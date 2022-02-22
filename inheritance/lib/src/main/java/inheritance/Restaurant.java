@@ -7,8 +7,8 @@ public class Restaurant {
 
     public Restaurant(String name, int starScore, int priceScore) {
         this.name = name;
-        this.starScore = starScore;
-        this.priceScore = priceScore;
+        setStarScore(starScore);
+        setPriceScore(priceScore);
     }
 
     public String getName() {
