@@ -20,7 +20,7 @@ public class Shop extends Destination {
 
     @Override
     public String toString() {
-        return "{ name: " + name + ", description: " + description + ", price: " + priceScore + " }";
+        return "{ name: " + name + ", description: " + description + ", price: " + priceScore + ", rating: " + getStarScore() + " }";
     }
 
     @Override

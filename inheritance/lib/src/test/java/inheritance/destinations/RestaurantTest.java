@@ -18,7 +18,7 @@ public class RestaurantTest {
     @Test
     void test_restaurant_tostring() {
         Restaurant sut = new Restaurant("Dick's",1);
-        assert(sut.toString().equals("{ name: Dick's, stars: 0, price: 1 }"));
+        assert(sut.toString().equals("{ name: Dick's, price: 1, rating: 0 }"));
     }
 
     @Test

@@ -68,6 +68,6 @@ public class Destination implements Reviewable {
 
     @Override
     public String toString() {
-        return "{ name: " + name + ", stars: " + getStarScore() + ", price: " + priceScore + " }";
+        return "{ name: " + name + ", price: " + priceScore + ", rating: " + getStarScore()+ " }";
     }
 }

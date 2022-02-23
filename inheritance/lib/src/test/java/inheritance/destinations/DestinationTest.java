@@ -6,35 +6,33 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ShopTest {
+public class DestinationTest {
 
     @Test
     void test_constructor() {
-        Shop sut = new Shop("The Fish Store", "Seattle's Favorite Fish Shop", 2);
-        assert(sut.getName().equals("The Fish Store"));
-        assert(sut.getDescription().equals("Seattle's Favorite Fish Shop"));
-        assert(sut.getPriceScore() == 2);
-    }
-
-    @Test
-    void test_shop_tostring() {
-        Shop sut = new Shop("The Fish Store", "Seattle's Favorite Fish Shop", 2);
-        System.out.println(sut);
-        assert(sut.toString()
-                .equals("{ name: The Fish Store, description: Seattle's Favorite Fish Shop, price: 2, rating: 0 }"));
-    }
-
-    @Test
-    void test_setpricescore_valid() {
-        Shop sut = new Shop("The Fish Store", "Seattle's Favorite Fish Shop", 2);
-        assert(sut.getPriceScore() == 2);
-        sut.setPriceScore(3);
+        Destination sut = new Destination("Cool Place", 3);
+        assert(sut.getName().equals("Cool Place"));
         assert(sut.getPriceScore() == 3);
     }
 
     @Test
+    void test_shop_tostring() {
+        Destination sut = new Destination("Cool Place", 3);
+        System.out.println(sut);
+        assert(sut.toString().equals("{ name: Cool Place, price: 3, rating 0 }"));
+    }
+
+    @Test
+    void test_setpricescore_valid() {
+        Destination sut = new Destination("Cool Place", 3);
+        assert(sut.getPriceScore() == 3);
+        sut.setPriceScore(1);
+        assert(sut.getPriceScore() == 1);
+    }
+
+    @Test
     void test_setpricescore_invalid() {
-        Shop sut = new Shop("The Fish Store", "Seattle's Favorite Fish Shop", 2);
+        Destination sut = new Destination("Cool Place", 3);
         assertThrows(IllegalArgumentException.class, () -> sut.setPriceScore(-1));
         assertThrows(IllegalArgumentException.class, () -> sut.setPriceScore(4));
     }
@@ -42,8 +40,8 @@ public class ShopTest {
     @Test
     void test_addreview() {
         User user = new User("Reviewer", "Reviewsalot");
-        Shop sut = new Shop("The Fish Store", "Seattle's Favorite Fish Shop", 2);
-        Review review = new Review(user, 3, "Cute Fish!");
+        Destination sut = new Destination("Cool Place", 3);
+        Review review = new Review(user, 3, "Pretty great.");
         sut.addReview(review);
         assert(sut.getReviewCount() == 1);
     }
@@ -51,7 +49,7 @@ public class ShopTest {
     @Test
     void test_addreview_multiple_same_review() {
         User user = new User("Reviewer", "Reviewsalot");
-        Shop sut = new Shop("The Fish Store", "Seattle's Favorite Fish Shop", 2);
+        Destination sut = new Destination("Cool Place", 3);
         Review review = new Review(user, 3, "Wowwwwww!");
         sut.addReview(review);
         assert(sut.getReviewCount() == 1);
@@ -61,11 +59,11 @@ public class ShopTest {
 
     @Test
     void test_getaveragereviewstarscore() {
-        Shop sut = new Shop("The Fish Store", "Seattle's Favorite Fish Shop", 2);
+        Destination sut = new Destination("Cool Place", 3);
         User userA = new User("Reviewer", "Reviewsalot");
-        User userB = new User("Fishy", "McFishface");
-        User userC = new User("It's", "Aquaman");
-        Review reviewA = new Review(userA, 3, "Fish!");
+        User userB = new User("Generic", "Shopper");
+        User userC = new User("Cheapy", "Cheaperson");
+        Review reviewA = new Review(userA, 3, "Cool!");
         Review reviewB = new Review(userB,1, "Boring.");
         Review reviewC = new Review(userC, 3, "So cool!");
         sut.addReview(reviewA);
@@ -78,9 +76,9 @@ public class ShopTest {
 
     @Test
     void test_updatereviewstars_single_review() {
-        Shop sut = new Shop("The Fish Store", "Seattle's Favorite Fish Shop", 2);
+        Destination sut = new Destination("Cool Place", 3);
         User user = new User("Reviewer", "Reviewsalot");
-        Review review = new Review(user, 3, "Fish!");
+        Review review = new Review(user, 3, "Stuff!");
         sut.addReview(review);
         sut.updateReviewStars(review.getAuthor(), 1);
         assert(sut.getStarScore() == 1);
@@ -88,13 +86,13 @@ public class ShopTest {
 
     @Test
     void test_updatereviewstars_multiple() {
-        Shop sut = new Shop("The Fish Store", "Seattle's Favorite Fish Shop", 2);
+        Destination sut = new Destination("Cool Place", 3);
         User userA = new User("Reviewer", "Reviewsalot");
-        User userB = new User("Fishy", "McFishface");
-        User userC = new User("It's", "Aquaman");
-        Review reviewA = new Review(userA, 1, "Fish!");
-        Review reviewB = new Review(userB, 3, "Meh.");
-        Review reviewC = new Review(userC, 3, "Yum!");
+        User userB = new User("Generic", "Shopper");
+        User userC = new User("Cheapy", "Cheaperson");
+        Review reviewA = new Review(userA, 3, "Cool!");
+        Review reviewB = new Review(userB,1, "Boring.");
+        Review reviewC = new Review(userC, 3, "So cool!");
         sut.addReview(reviewA);
         sut.addReview(reviewB);
         sut.addReview(reviewC);
@@ -107,24 +105,24 @@ public class ShopTest {
 
     @Test
     void test_getstarscore_empty() {
-        Shop sut = new Shop("The Fish Store", "Seattle's Favorite Fish Shop", 2);
+        Destination sut = new Destination("Cool Place", 3);
         assert(sut.getStarScore() == 0);
     }
 
     @Test
     void test_getstarscore_multiple() {
-        Shop sut = new Shop("The Fish Store", "Seattle's Favorite Fish Shop", 2);
+        Destination sut = new Destination("Cool Place", 3);
         User userA = new User("Reviewer", "Reviewsalot");
-        User userB = new User("Fishy", "McFishface");
-        User userC = new User("It's", "Aquaman");
-        Review review = new Review(userA, 3, "Fish!");
-        sut.addReview(review);
-        Review sutB = new Review(userB, 1, "Meh.");
-        sut.addReview(sutB);
-        Review sutC = new Review(userC, 3, "Yum!");
-        sut.addReview(sutC);
+        User userB = new User("Generic", "Shopper");
+        User userC = new User("Cheapy", "Cheaperson");
+        Review reviewA = new Review(userA, 3, "Cool!");
+        sut.addReview(reviewA);
+        Review reviewB = new Review(userB,1, "Boring.");
+        sut.addReview(reviewB);
+        Review reviewC = new Review(userC, 3, "So cool!");
+        sut.addReview(reviewC);
         assert(sut.getStarScore() == 2);
-        sutB.updateStars(3);
+        reviewB.updateStars(3);
         assert(sut.getStarScore() == 3);
     }
 }
