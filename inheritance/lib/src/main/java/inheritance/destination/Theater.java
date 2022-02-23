@@ -1,6 +1,5 @@
-package inheritance.destinations;
+package inheritance.destination;
 
-import inheritance.review.Review;
 import inheritance.review.TheaterReview;
 
 import java.util.ArrayList;

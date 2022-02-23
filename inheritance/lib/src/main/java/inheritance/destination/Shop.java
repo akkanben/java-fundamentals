@@ -1,10 +1,7 @@
-package inheritance.destinations;
+package inheritance.destination;
 
 import inheritance.User;
 import inheritance.review.Review;
-import inheritance.review.Reviewable;
-
-import java.util.ArrayList;
 
 public class Shop extends Destination {
     private final String description;

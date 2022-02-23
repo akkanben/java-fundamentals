@@ -1,4 +1,4 @@
-package inheritance.destinations;
+package inheritance.destination;
 
 public class Restaurant extends Destination {
 

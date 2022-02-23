@@ -1,4 +1,4 @@
-package inheritance.destinations;
+package inheritance.destination;
 
 import inheritance.User;
 import inheritance.review.Review;
