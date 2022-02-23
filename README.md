@@ -27,7 +27,7 @@ To Use:
 3. Apply the transform to the output file you specify (.bmp) with `./gradlew run --args "baldy-8bit.bmp out.bmp grayscale"`.
 4. The transformed image can be found in the same resources folder that the input file was placed.
 
-## Lab 05 -- Composition and Inheritance, Part 1
+## Lab 06 -- Composition and Inheritance, Part 1
 
 The inheritance library contains a restaurant package and review package that can be used together to create Restaurant objects and Review objects. 
 
@@ -43,3 +43,54 @@ Testing:
 
 - The classes in the restaurant and review packages have corresponding tests files and individual tests for the methods of the classes.
 - run `./gradlew test` from the `inheritance` directory.
+
+## Lab 07 -- Composition and Inheritance, Part 2 
+
+Continuing to work on the Zelp review site domain model, this update adds a reviewable interface that various destinations can implement. The Destination class holds most of the functionality for each location that could have a review. Restaurant, Shop, and Theater extend Destination. TheaterReviews are a subclass of Review and allow users to specify in their review a movie they viewed (or not).
+
+This update also introduces a User class that replaces the previous String model. Users can only review a reviewable location once, but they can update their review score.
+
+Organization:
+```
+├── main
+│   ├── java.inheritance
+│   │       ├── destination
+│   │       │   ├── Destination.java
+│   │       │   ├── RestaurantChain.java
+│   │       │   ├── Restaurant.java
+│   │       │   ├── Shop.java
+│   │       │   └── Theater.java
+│   │       ├── review
+│   │       │   ├── Reviewable.java
+│   │       │   ├── Review.java
+│   │       │   └── TheaterReview.java
+│   │       └── User.java
+│   └── resources
+└── test
+    ├── java.inheritance
+    │       ├── destination
+    │       │   ├── DestinationTest.java
+    │       │   ├── RestaurantChainTest.java
+    │       │   ├── RestaurantTest.java
+    │       │   ├── ShopTest.java
+    │       │   └── TheaterTest.java
+    │       ├── review
+    │       │   ├── ReviewTest.java
+    │       │   └── TheaterReviewTest.java
+    │       └── UserTest.java
+    └── resources
+```
+
+Testing:
+
+- More tests present:
+  - DestinationTest
+  - RestaurantChainTest
+  - RestaurantTest
+  - ShopTest
+  - TheaterTest
+  - ReviewTest
+  - TheaterReviewTest
+  - UserTest
+- Same as last lab, run `./gradlew test` from the `inheritance` directory.
+
