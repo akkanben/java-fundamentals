@@ -4,7 +4,7 @@ import inheritance.User;
 
 public class Review {
     User author;
-    private int starScore;
+    protected int starScore;
     String body;
 
     public Review(User author, int starScore, String body) {

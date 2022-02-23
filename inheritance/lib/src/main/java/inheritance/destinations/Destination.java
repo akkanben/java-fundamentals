@@ -50,7 +50,6 @@ public class Destination implements Reviewable {
         return sum / list.size();
     }
 
-    @Override
     public void addReview(Review review) {
         if(!reviews.contains(review)) {
             reviews.add(review);
@@ -58,7 +57,6 @@ public class Destination implements Reviewable {
         }
     }
 
-    @Override
     public void updateReviewStars(User author, int newStars) {
         for(Review element : reviews) {
             if(element.getAuthor().equals(author))

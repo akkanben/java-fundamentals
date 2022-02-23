@@ -1,5 +1,8 @@
 package inheritance.destinations;
 
+import inheritance.review.Review;
+import inheritance.review.TheaterReview;
+
 import java.util.ArrayList;
 
 public class Theater extends Destination {
@@ -21,6 +24,12 @@ public class Theater extends Destination {
         nowShowingList.remove(movieTitle);
     }
 
+    public void addReview(TheaterReview review) {
+        if(!reviews.contains(review)) {
+            reviews.add(review);
+            reviewCount++;
+        }
+    }
     @Override
     public String toString() {
         return "{ name: " + name + ", price: " + priceScore + ", rating: "
