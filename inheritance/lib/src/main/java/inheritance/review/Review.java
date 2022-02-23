@@ -1,21 +1,16 @@
 package inheritance.review;
 
 import inheritance.User;
-import org.checkerframework.checker.units.qual.A;
-
-import java.util.ArrayList;
 
 public class Review {
     User author;
     private int starScore;
     String body;
-    ArrayList<Review> reviewsList;
 
     public Review(User author, int starScore, String body) {
         this.author = author;
         this.body = body;
         setStarScore(starScore);
-        reviewsList = new ArrayList<>();
     }
 
     public void setStarScore(int starScore) {

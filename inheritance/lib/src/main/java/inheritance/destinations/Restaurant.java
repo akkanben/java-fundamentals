@@ -1,15 +1,16 @@
-package inheritance.restaurant;
+package inheritance.destinations;
 
 import inheritance.User;
-import inheritance.review.RestaurantReview;
+import inheritance.review.Review;
+import inheritance.review.Reviewable;
 
 import java.util.ArrayList;
 
-public class Restaurant{
+public class Restaurant implements Reviewable {
     private final String name;
     private int priceScore;
     private int reviewCount = 0;
-    private final ArrayList<RestaurantReview> reviews;
+    private final ArrayList<Review> reviews;
 
     public Restaurant(String name, int priceScore) {
         this.name = name;
@@ -38,7 +39,7 @@ public class Restaurant{
         this.priceScore = priceScore;
     }
 
-    public void addReview(RestaurantReview review) {
+    public void addReview(Review review) {
         if(!reviews.contains(review)) {
             reviews.add(review);
             reviewCount++;
@@ -46,15 +47,15 @@ public class Restaurant{
     }
 
     public void updateReviewStars(User author, int newStars) {
-        for(RestaurantReview element : reviews) {
+        for(Review element : reviews) {
             if(element.getAuthor().equals(author))
                 element.setStarScore(newStars);
         }
     }
 
-    private int getAverageReviewStarScore(ArrayList<RestaurantReview> list) {
+    private int getAverageReviewStarScore(ArrayList<Review> list) {
         int sum = 0;
-       for(RestaurantReview element : list) {
+       for(Review element : list) {
           sum += element.getStarScore();
        }
        return sum / list.size();

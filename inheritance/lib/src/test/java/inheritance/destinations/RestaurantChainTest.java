@@ -1,4 +1,4 @@
-package inheritance.restaurant;
+package inheritance.destinations;
 
 import org.junit.jupiter.api.Test;
 

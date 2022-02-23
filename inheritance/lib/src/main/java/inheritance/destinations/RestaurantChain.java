@@ -1,4 +1,4 @@
-package inheritance.restaurant;
+package inheritance.destinations;
 
 import java.util.ArrayList;
 
