@@ -1,20 +1,16 @@
 package inheritance.review;
 
-import org.checkerframework.checker.units.qual.A;
-
-import java.util.ArrayList;
+import inheritance.User;
 
 public class Review {
-    String author;
-    private int starScore;
+    User author;
+    protected int starScore;
     String body;
-    ArrayList<Review> reviewsList;
 
-    public Review(String author, int starScore, String body) {
+    public Review(User author, int starScore, String body) {
         this.author = author;
         this.body = body;
         setStarScore(starScore);
-        reviewsList = new ArrayList<>();
     }
 
     public void setStarScore(int starScore) {
@@ -33,10 +29,10 @@ public class Review {
 
     @Override
     public String toString() {
-       return "{ author: " + author + ", score: " + starScore + ", review: " + body + " }";
+       return "{ author: " + author.toString() + ", score: " + starScore + ", review: " + body + " }";
     }
 
-    public String getAuthor() {
+    public User getAuthor() {
         return author;
     }
 }
