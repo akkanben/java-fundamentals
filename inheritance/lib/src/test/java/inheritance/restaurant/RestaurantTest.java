@@ -1,5 +1,6 @@
 package inheritance.restaurant;
 
+import inheritance.User;
 import inheritance.review.RestaurantReview;
 import org.junit.jupiter.api.Test;
 
@@ -37,61 +38,70 @@ public class RestaurantTest {
 
     @Test
     void test_addreview() {
-        Restaurant sutA = new Restaurant("Dick's",1);
-        RestaurantReview sutB = new RestaurantReview(sutA,"Reviewer Reviewsalot", 3, "Hamburgers!");
-        sutA.addReview(sutB);
-        assert(sutA.getReviewCount() == 1);
+        User user = new User("Reviewer", "Reviewsalot");
+        Restaurant restaurant = new Restaurant("Dick's",1);
+        RestaurantReview sut = new RestaurantReview(restaurant,user, 3, "Hamburgers!");
+        restaurant.addReview(sut);
+        assert(restaurant.getReviewCount() == 1);
     }
 
     @Test
     void test_addreview_multiple_same_review() {
-        Restaurant sutA = new Restaurant("Dick's",1);
-        RestaurantReview sutB = new RestaurantReview(sutA,"Reviewer Reviewsalot", 3, "Hamburgers!");
-        sutA.addReview(sutB);
-        assert(sutA.getReviewCount() == 1);
-        sutA.addReview(sutB);
-        assert(sutA.getReviewCount() == 1);
+        User user = new User("Reviewer", "Reviewsalot");
+        Restaurant restaurant = new Restaurant("Dick's",1);
+        RestaurantReview sut = new RestaurantReview(restaurant,user, 3, "Hamburgers!");
+        restaurant.addReview(sut);
+        assert(restaurant.getReviewCount() == 1);
+        restaurant.addReview(sut);
+        assert(restaurant.getReviewCount() == 1);
     }
 
     @Test
     void test_getaveragereviewstarscore() {
-        Restaurant sutA = new Restaurant("Dick's",1);
-        RestaurantReview sutB = new RestaurantReview(sutA,"Reviewer Reviewsalot", 3, "Hamburgers!");
-        RestaurantReview sutC = new RestaurantReview(sutA,"Hamburger Helper", 1, "Meh.");
-        RestaurantReview sutD = new RestaurantReview(sutA,"The Hamburgler", 3, "Yum!");
-        sutA.addReview(sutB);
-        assert(sutA.getStarScore() == 3);
-        sutA.addReview(sutC);
-        assert(sutA.getStarScore() == 2);
-        sutA.addReview(sutD);
-        assert(sutA.getStarScore() == 2);
+        Restaurant restaurant = new Restaurant("Dick's",1);
+        User userA = new User("Reviewer", "Reviewsalot");
+        User userB = new User("Hamburger", "Helper");
+        User userC = new User("The", "Hamburgler");
+        RestaurantReview sutA = new RestaurantReview(restaurant,userA, 3, "Hamburgers!");
+        RestaurantReview sutB = new RestaurantReview(restaurant,userB,1, "Meh.");
+        RestaurantReview sutC = new RestaurantReview(restaurant,userC, 3, "Yum!");
+        restaurant.addReview(sutA);
+        assert(restaurant.getStarScore() == 3);
+        restaurant.addReview(sutB);
+        assert(restaurant.getStarScore() == 2);
+        restaurant.addReview(sutC);
+        assert(restaurant.getStarScore() == 2);
     }
 
     @Test
     void test_updatereviewstars_single_review() {
-        Restaurant sutA = new Restaurant("Dick's",1);
-        RestaurantReview sutB = new RestaurantReview(sutA,"Reviewer Reviewsalot", 3, "Hamburgers!");
-        sutA.addReview(sutB);
-        sutA.updateReviewStars(sutB.getAuthor(), 1);
-        assert(sutA.getStarScore() == 1);
+        Restaurant restaurant = new Restaurant("Dick's",1);
+        User user = new User("Reviewer", "Reviewsalot");
+        RestaurantReview sut = new RestaurantReview(restaurant,user, 3, "Hamburgers!");
+        restaurant.addReview(sut);
+        restaurant.updateReviewStars(sut.getAuthor(), 1);
+        assert(restaurant.getStarScore() == 1);
     }
 
     @Test
     void test_updatereviewstars_multiple() {
-        Restaurant sutA = new Restaurant("Dick's",1);
-        RestaurantReview sutB = new RestaurantReview(sutA,"Reviewer Reviewsalot", 1, "Hamburgers!");
-        RestaurantReview sutC = new RestaurantReview(sutA,"Hamburger Helper", 3, "Meh.");
-        RestaurantReview sutD = new RestaurantReview(sutA,"The Hamburgler", 3, "Yum!");
-        sutA.addReview(sutB);
-        sutA.addReview(sutC);
-        sutA.addReview(sutC);
-        System.out.println(sutA);
-        sutA.updateReviewStars(sutC.getAuthor(), 1);
-        System.out.println(sutA);
-        assert(sutA.getStarScore() == 1);
-        sutA.updateReviewStars(sutC.getAuthor(), 3);
-        sutA.updateReviewStars(sutB.getAuthor(), 3);
-        assert(sutA.getStarScore() == 3);
+        Restaurant restaurant = new Restaurant("Dick's",1);
+        User userA = new User("Reviewer", "Reviewsalot");
+        User userB = new User("Hamburger", "Helper");
+        User userC = new User("The", "Hamburgler");
+        RestaurantReview sutA = new RestaurantReview(restaurant,userA, 1, "Hamburgers!");
+        RestaurantReview sutB = new RestaurantReview(restaurant,userB, 3, "Meh.");
+        RestaurantReview sutC = new RestaurantReview(restaurant,userC, 3, "Yum!");
+        restaurant.addReview(sutA);
+        restaurant.addReview(sutB);
+        restaurant.addReview(sutB);
+        System.out.println(restaurant);
+        restaurant.updateReviewStars(sutB.getAuthor(), 1);
+        System.out.println(restaurant);
+        assert(restaurant.getStarScore() == 1);
+        restaurant.updateReviewStars(sutB.getAuthor(), 3);
+        restaurant.updateReviewStars(sutA.getAuthor(), 3);
+        assert(restaurant.getStarScore() == 3);
     }
 
     @Test
@@ -102,18 +112,18 @@ public class RestaurantTest {
 
     @Test
     void test_getstarscore_multiple() {
-        Restaurant sutA = new Restaurant("Dick's",1);
-        RestaurantReview sutB = new RestaurantReview(sutA,"Reviewer Reviewsalot", 3, "Hamburgers!");
-        sutA.addReview(sutB);
-        RestaurantReview sutC = new RestaurantReview(sutA,"Hamburger Helper", 1, "Meh.");
-        sutA.addReview(sutC);
-        RestaurantReview sutD = new RestaurantReview(sutA,"The Hamburgler", 3, "Yum!");
-        sutA.addReview(sutD);
-        assert(sutA.getStarScore() == 2);
-        sutC.updateStars(3);
-        assert(sutA.getStarScore() == 3);
-
+        Restaurant restaurant = new Restaurant("Dick's",1);
+        User userA = new User("Reviewer", "Reviewsalot");
+        User userB = new User("Hamburger", "Helper");
+        User userC = new User("The", "Hamburgler");
+        RestaurantReview sutA = new RestaurantReview(restaurant,userA, 3, "Hamburgers!");
+        restaurant.addReview(sutA);
+        RestaurantReview sutB = new RestaurantReview(restaurant,userB, 1, "Meh.");
+        restaurant.addReview(sutB);
+        RestaurantReview sutC = new RestaurantReview(restaurant,userC, 3, "Yum!");
+        restaurant.addReview(sutC);
+        assert(restaurant.getStarScore() == 2);
+        sutB.updateStars(3);
+        assert(restaurant.getStarScore() == 3);
     }
-
-
 }

@@ -1,11 +1,12 @@
 package inheritance.review;
 
+import inheritance.User;
 import inheritance.restaurant.Restaurant;
 
 public class RestaurantReview extends Review {
     Restaurant restaurant;
 
-    public RestaurantReview(Restaurant restaurant, String author, int starScore, String body) {
+    public RestaurantReview(Restaurant restaurant, User author, int starScore, String body) {
         super(author, starScore, body);
         this.restaurant = restaurant;
     }
@@ -20,6 +21,6 @@ public class RestaurantReview extends Review {
 
     @Override
     public String toString() {
-        return "{ restaurant: " + restaurant.getName() + ", author: " + author + ", score: " + getStarScore() + ", review: " + body + " }";
+        return "{ restaurant: " + restaurant.getName() + ", author: " + author.toString() + ", score: " + getStarScore() + ", review: " + body + " }";
     }
 }

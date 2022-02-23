@@ -11,11 +11,11 @@ public class RestaurantChainTest {
 
     @Test
     void test_addLocation() {
-        RestaurantChain sutA = new RestaurantChain("Dick's");
-        Restaurant sutB = new Restaurant("Dick's Shoreline", 1);
-        sutA.addLocation(sutB);
-        assert(sutA.locationCount == 1);
-        sutA.addLocation(sutB);
-        assert(sutA.locationCount == 1);
+        RestaurantChain sut = new RestaurantChain("Dick's");
+        Restaurant restaurant = new Restaurant("Dick's Shoreline", 1);
+        sut.addLocation(restaurant);
+        assert(sut.locationCount == 1);
+        sut.addLocation(restaurant);
+        assert(sut.locationCount == 1);
     }
 }

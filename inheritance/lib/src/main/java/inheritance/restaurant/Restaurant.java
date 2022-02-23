@@ -1,5 +1,6 @@
 package inheritance.restaurant;
 
+import inheritance.User;
 import inheritance.review.RestaurantReview;
 
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class Restaurant{
         }
     }
 
-    public void updateReviewStars(String author, int newStars) {
+    public void updateReviewStars(User author, int newStars) {
         for(RestaurantReview element : reviews) {
             if(element.getAuthor().equals(author))
                 element.setStarScore(newStars);

@@ -1,5 +1,6 @@
 package inheritance.review;
 
+import inheritance.User;
 import inheritance.restaurant.Restaurant;
 import org.junit.jupiter.api.Test;
 
@@ -7,29 +8,32 @@ public class RestaurantReviewTest {
 
     @Test
     void test_restaurantreview_constructor() {
-        Restaurant sutA = new Restaurant("Dick's",1);
-        RestaurantReview sutB = new RestaurantReview(sutA,"Person McPersonface", 2, "This is my opinion.");
-        assert(sutB.restaurant.equals(sutA));
-        assert(sutB.author.equals("Person McPersonface"));
-        assert(sutB.getStarScore() == 2);
-        assert(sutB.body.equals("This is my opinion."));
+        User user = new User("Person", "McPersonface");
+        Restaurant restaurant = new Restaurant("Dick's",1);
+        RestaurantReview sut = new RestaurantReview(restaurant,user, 2, "This is my opinion.");
+        assert(sut.restaurant.equals(restaurant));
+        assert(sut.author.toString().equals("Person McPersonface"));
+        assert(sut.getStarScore() == 2);
+        assert(sut.body.equals("This is my opinion."));
     }
 
     @Test
     void test_restaurantreview_toString() {
-        Restaurant sutA = new Restaurant("Dick's",1);
-        RestaurantReview sutB = new RestaurantReview(sutA,"Person McPersonface", 2, "This is my opinion.");
-        assert(sutB.toString().equals("{ restaurant: Dick's, author: Person McPersonface, score: 2, review: This is my opinion. }"));
+        User user = new User("Person", "McPersonface");
+        Restaurant restaurant = new Restaurant("Dick's",1);
+        RestaurantReview sut = new RestaurantReview(restaurant,user, 2, "This is my opinion.");
+        assert(sut.toString().equals("{ restaurant: Dick's, author: Person McPersonface, score: 2, review: This is my opinion. }"));
     }
 
     @Test
     void test_updatestars() {
-        Restaurant sutA = new Restaurant("Dick's",1);
-        RestaurantReview sutB = new RestaurantReview(sutA,"Person McPersonface", 2, "This is my opinion.");
-        sutA.addReview(sutB);
-        assert(sutA.getStarScore() == 2);
-        sutB.updateStars(5);
-        assert(sutA.getStarScore() == 5);
+        User user = new User("Person", "McPersonface");
+        Restaurant restaurant = new Restaurant("Dick's",1);
+        RestaurantReview sut = new RestaurantReview(restaurant,user, 2, "This is my opinion.");
+        restaurant.addReview(sut);
+        assert(restaurant.getStarScore() == 2);
+        sut.updateStars(5);
+        assert(restaurant.getStarScore() == 5);
 
     }
 }
