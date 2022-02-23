@@ -17,9 +17,8 @@ public class ShopTest {
     }
 
     @Test
-    void test_shop_tostring() {
+    void test_tostring() {
         Shop sut = new Shop("The Fish Store", "Seattle's Favorite Fish Shop", 2);
-        System.out.println(sut);
         assert(sut.toString()
                 .equals("{ name: The Fish Store, description: Seattle's Favorite Fish Shop, price: 2, rating: 0 }"));
     }

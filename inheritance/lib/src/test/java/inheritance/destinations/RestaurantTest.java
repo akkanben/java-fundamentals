@@ -22,7 +22,7 @@ public class RestaurantTest {
     }
 
     @Test
-    void test_setpricescore_valid() {
+    void test_restaurant_setpricescore_valid() {
        Restaurant sut = new Restaurant("Judy Fu's Snappy Dragon", 1);
        assert(sut.getPriceScore() == 1);
        sut.setPriceScore(3);
@@ -30,14 +30,14 @@ public class RestaurantTest {
     }
 
     @Test
-    void test_setpricescore_invalid() {
+    void test_restaurant_setpricescore_invalid() {
         Restaurant sut = new Restaurant("Judy Fu's Snappy Dragon", 1);
         assertThrows(IllegalArgumentException.class, () -> sut.setPriceScore(-1));
         assertThrows(IllegalArgumentException.class, () -> sut.setPriceScore(4));
     }
 
     @Test
-    void test_addreview() {
+    void test_restaurant_addreview() {
         User user = new User("Reviewer", "Reviewsalot");
         Restaurant restaurant = new Restaurant("Dick's",1);
         Review sut = new Review(user, 3, "Hamburgers!");
@@ -46,7 +46,7 @@ public class RestaurantTest {
     }
 
     @Test
-    void test_addreview_multiple_same_review() {
+    void test_restaurant_addreview_multiple_same_review() {
         User user = new User("Reviewer", "Reviewsalot");
         Restaurant restaurant = new Restaurant("Dick's",1);
         Review sut = new Review(user, 3, "Hamburgers!");
@@ -57,7 +57,7 @@ public class RestaurantTest {
     }
 
     @Test
-    void test_getaveragereviewstarscore() {
+    void test_restaurant_getaveragereviewstarscore() {
         Restaurant restaurant = new Restaurant("Dick's",1);
         User userA = new User("Reviewer", "Reviewsalot");
         User userB = new User("Hamburger", "Helper");
@@ -74,7 +74,7 @@ public class RestaurantTest {
     }
 
     @Test
-    void test_updatereviewstars_single_review() {
+    void test_restaurant_updatereviewstars_single_review() {
         Restaurant restaurant = new Restaurant("Dick's",1);
         User user = new User("Reviewer", "Reviewsalot");
         Review sut = new Review(user, 3, "Hamburgers!");
@@ -84,7 +84,7 @@ public class RestaurantTest {
     }
 
     @Test
-    void test_updatereviewstars_multiple() {
+    void test_restaurant_updatereviewstars_multiple() {
         Restaurant restaurant = new Restaurant("Dick's",1);
         User userA = new User("Reviewer", "Reviewsalot");
         User userB = new User("Hamburger", "Helper");
@@ -103,13 +103,13 @@ public class RestaurantTest {
     }
 
     @Test
-    void test_getstarscore_empty() {
+    void test_restaurant_getstarscore_empty() {
         Restaurant sut = new Restaurant("Dick's",1);
         assert(sut.getStarScore() == 0);
     }
 
     @Test
-    void test_getstarscore_multiple() {
+    void test_restaurant_getstarscore_multiple() {
         Restaurant restaurant = new Restaurant("Dick's",1);
         User userA = new User("Reviewer", "Reviewsalot");
         User userB = new User("Hamburger", "Helper");
