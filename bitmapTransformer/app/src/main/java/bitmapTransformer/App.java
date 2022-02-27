@@ -6,17 +6,13 @@ package bitmapTransformer;
 import bitmapTransformer.bitmap.Bitmap;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.Scanner;
 
 public class App {
 
     public static void main(String[] args) {
         String userPath = System.getProperty("user.dir");
-        String resourcesPath = "";
+        System.out.println(userPath);
+        String resourcesPath;
         String inputFileName = "";
         String outputFileName = "";
         String transformationType = "";
