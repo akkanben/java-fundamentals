@@ -11,12 +11,13 @@ public class Bitmap {
     private byte[] header = new byte[HEADER_SIZE];
     private int pixelArrayStartOffset; // Value in header that holds the offset for where the pixel array begins
     private int pixelDataSizeInBytes;
+    private int pixelPaddingSize;
     private int width;
     private int height;
     private int sizeInBytes;
-    private byte[] deviceIndependantHeader; // DIB header holds width/height data
+    private byte[] deviceIndependentHeader; // DIB header holds width/height data
     private byte[] pixelData;
-    private RGB[][] pixels;
+    private RGB[][] RGBPixelsArray;
 
     public Bitmap(File imageFile) {
         try {
@@ -24,19 +25,18 @@ public class Bitmap {
             // Get header
             is.read(header, 0, HEADER_SIZE);
             verifyTypeBMP(); // stops program if file is not .bmp type
-            sizeInBytes = concatinateFourBytesInArray(header, SIZE_DATA_START_INDEX);
-            pixelArrayStartOffset = concatinateFourBytesInArray(header, PIXEL_ARRAY_DATA_START_INDEX);
-            deviceIndependantHeader = new byte[pixelArrayStartOffset - HEADER_SIZE];
+            sizeInBytes = concatenateFourBytesInArray(header, SIZE_DATA_START_INDEX);
+            pixelArrayStartOffset = concatenateFourBytesInArray(header, PIXEL_ARRAY_DATA_START_INDEX);
+            deviceIndependentHeader = new byte[pixelArrayStartOffset - HEADER_SIZE];
             // Get DIB Header
-            is.read(deviceIndependantHeader, 0, deviceIndependantHeader.length);
+            is.read(deviceIndependentHeader, 0, deviceIndependentHeader.length);
             // Set height and width
-            width = concatinateFourBytesInArray(deviceIndependantHeader, 4);
-            height = concatinateFourBytesInArray(deviceIndependantHeader, 8);
+            width = concatenateFourBytesInArray(deviceIndependentHeader, 4);
+            height = concatenateFourBytesInArray(deviceIndependentHeader, 8);
             // Get pixel array data
             pixelDataSizeInBytes = sizeInBytes - pixelArrayStartOffset;
             pixelData = new byte[pixelDataSizeInBytes];
             is.read(pixelData);
-
             fillRGBPixels();
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -61,11 +61,11 @@ public class Bitmap {
     }
 
     private void fillRGBPixels() {
-        pixels = new RGB[height][width];
+        RGBPixelsArray = new RGB[height][width];
         int pixelsHeightMultiplier = 1;
         int pixelsWidthIndex = 0; // track which pixel in the row we're on
         // calculate the padding between each set of pixels
-        int pixelPaddingSize = (pixelDataSizeInBytes - (width * 3 * height)) / height;
+        pixelPaddingSize = (pixelDataSizeInBytes - (width * 3 * height)) / height;
         int endOfRowOffset = 0; // This increases each row to account for the padding bytes between rows
         for (int i = 0; i < pixelData.length; i++) {
             // compare the current index of the pixel array minus any padding vs.
@@ -82,27 +82,53 @@ public class Bitmap {
                 int green = Byte.toUnsignedInt(pixelData[i++]);
                 int red = Byte.toUnsignedInt(pixelData[i]);
                 RGB pixel = new RGB(red, green, blue);
-                pixels[pixelsHeightMultiplier - 1][pixelsWidthIndex] = pixel; // -1 sets returns height to 0 indexed
+                RGBPixelsArray[pixelsHeightMultiplier - 1][pixelsWidthIndex] = pixel; // -1 sets returns height to 0 indexed
                 pixelsWidthIndex++;
             }
         }
     }
 
-    public void writeOut(File outFile) throws IOException {
-        FileOutputStream os = new FileOutputStream(outFile);
-        os.write(header);
-        os.write(deviceIndependantHeader);
-        os.write(pixelData);
-        os.close();
+    private void rebuildPixelDataArray() {
+        int index = 0;
+        for(int i = 0; i < height; i++) {
+            for(int j = 0; j < width; j++) {
+                pixelData[index++] = (byte)RGBPixelsArray[i][j].green;
+                pixelData[index++] = (byte)RGBPixelsArray[i][j].blue;
+                pixelData[index++] = (byte)RGBPixelsArray[i][j].red;
+            }
+            for(int k = 0; k < pixelPaddingSize; k++)
+                pixelData[index++] = 0;
+        }
 
     }
 
     // The syntax for getting this right (using 0xFF &) found here https://stackoverflow.com/questions/2840190/java-convert-4-bytes-to-int
-    public int concatinateFourBytesInArray(byte[] array, int startingIndex) {
+    public int concatenateFourBytesInArray(byte[] array, int startingIndex) {
         return ((0xFF & array[startingIndex + 3]) << 24)
                 | ((0xFF & array[startingIndex + 2]) << 16)
                 | ((0xFF & array[startingIndex + 1]) << 8)
                 | (0xFF & array[startingIndex]);
+    }
+
+    public void writeOut(File outFile) throws IOException {
+        try(FileOutputStream os = new FileOutputStream(outFile)) {
+            rebuildPixelDataArray();
+            os.write(header);
+            os.write(deviceIndependentHeader);
+            os.write(pixelData);
+        }
+    }
+
+    public void grayScaleTransform() {
+        RGB currentColor;
+        for(int i = 0; i < height; i++){
+            for (int j = 0; j < width; j++){
+                currentColor = RGBPixelsArray[i][j];
+                int gs = (currentColor.red + currentColor.blue + currentColor.green) / 3;
+                RGB newColor = new RGB(gs, gs, gs);
+                RGBPixelsArray[i][j] = newColor;
+            }
+        }
     }
 
 }

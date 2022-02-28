@@ -4,8 +4,12 @@
 package bitmapTransformer;
 
 import bitmapTransformer.bitmap.Bitmap;
+import bitmapTransformer.bitmap.Transform;
 
 import java.io.File;
+import java.io.IOException;
+
+import static bitmapTransformer.bitmap.Transform.*;
 
 public class App {
 
@@ -15,7 +19,7 @@ public class App {
         String resourcesPath;
         String inputFileName = "";
         String outputFileName = "";
-        String transformationType = "";
+        String transformationType = "copy";
         try {
             inputFileName = args[0];
             outputFileName = args[1];
@@ -32,6 +36,68 @@ public class App {
         }
         File inputImageFile = new File(resourcesPath + inputFileName);
         Bitmap bitmapToTransform = new Bitmap(inputImageFile);
+
+       try {
+           switch (transformationType) {
+               case "copy" -> {
+                   System.out.println("Copying " + inputFileName + " to " + outputFileName);
+               }
+               case "grayscale" -> {
+                   System.out.println("Transforming " + inputFileName + " to " + outputFileName + " in grayscale.");
+                   bitmapToTransform.grayScaleTransform();
+               }
+               case "darken" -> {
+                   System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by darkening the image.");
+                   //bitmapToTransform.darkenTransform();
+               }
+               case "lighten" -> {
+                   System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by darkening the image.");
+                   //bitmapToTransform.lightenTransform();
+               }
+               case "r-multiply" -> {
+                   System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by multiplying the image hue with red.");
+                   //bitmapToTransform.hueMultiplyTransform(0);
+               }
+               case "g-multiply" -> {
+                   System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by multiplying the image hue with red.");
+                   //bitmapToTransform.hueMultiplyTransform(1);
+               }
+               case "b-multiply" -> {
+                   System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by multiplying the image hue with red.");
+                   //bitmapToTransform.hueMultiplyTransform(2);
+               }
+               case "pixelate" -> {
+                   System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by pixelating the image.");
+                   //bitmapToTransform.pixelateTransform();
+               }
+               case "invert" -> {
+                   System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by inverting the color.");
+                   //bitmapToTransform.invertTransform();
+               }
+               case "randomize" -> {
+                   System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by randomizing each pixel color.");
+                   //bitmapToTransform.randomizeTransform();
+               }
+               case "mirror-h" -> {
+                   System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by mirroring horizontally.");
+                   //bitmapToTransform.horizontalMirrorTransform();
+               }
+               case "mirror-v" -> {
+                   System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by mirroring vertically.");
+                   //bitmapToTransform.verticalMirrorTransform();
+               }
+               case "border" -> {
+                   System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by adding a 20px border.");
+                   //bitmapToTransform.addBorderTransform(20);
+               }
+               default -> throw new IllegalStateException("Unexpected value: " + transformationType);
+           }
+           bitmapToTransform.writeOut(new File(resourcesPath + outputFileName));
+       } catch (IOException ioe) {
+           System.out.println("Unable to write out to " + outputFileName);
+           System.exit(1);
+       }
+
         System.out.println("Transform complete, " + outputFileName + " available in resources directory.");
         //bitmapToTransform.writeOutImage(resourcesPath + outputFileName);
     }
