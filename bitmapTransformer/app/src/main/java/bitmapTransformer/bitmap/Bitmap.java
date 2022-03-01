@@ -8,13 +8,11 @@ public class Bitmap {
     private static final int HEADER_SIZE = 14;
     private static final int SIZE_DATA_START_INDEX = 2; // image size stored at byte offset 2
     private static final int PIXEL_ARRAY_DATA_START_INDEX = 10; // pixel start offset is the last 4 bytes of the header
-    private byte[] header = new byte[HEADER_SIZE];
-    private int pixelArrayStartOffset; // Value in header that holds the offset for where the pixel array begins
+    private final byte[] header = new byte[HEADER_SIZE];
     private int pixelDataSizeInBytes;
     private int pixelPaddingSize;
     private int width;
     private int height;
-    private int sizeInBytes;
     private byte[] deviceIndependentHeader; // DIB header holds width/height data
     private byte[] pixelData;
     private RGB[][] RGBPixelsArray;
@@ -25,8 +23,9 @@ public class Bitmap {
             // Get header
             is.read(header, 0, HEADER_SIZE);
             verifyTypeBMP(); // stops program if file is not .bmp type
-            sizeInBytes = concatenateFourBytesInArray(header, SIZE_DATA_START_INDEX);
-            pixelArrayStartOffset = concatenateFourBytesInArray(header, PIXEL_ARRAY_DATA_START_INDEX);
+            int sizeInBytes = concatenateFourBytesInArray(header, SIZE_DATA_START_INDEX);
+            // Value in header that holds the offset for where the pixel array begins
+            int pixelArrayStartOffset = concatenateFourBytesInArray(header, PIXEL_ARRAY_DATA_START_INDEX);
             deviceIndependentHeader = new byte[pixelArrayStartOffset - HEADER_SIZE];
             // Get DIB Header
             is.read(deviceIndependentHeader, 0, deviceIndependentHeader.length);
@@ -40,6 +39,7 @@ public class Bitmap {
             fillRGBPixels();
         } catch (IOException ioe) {
             ioe.printStackTrace();
+            System.out.println("Uname to read file: " + imageFile);
             System.exit(1);
         }
     }
@@ -48,9 +48,9 @@ public class Bitmap {
         return width;
     }
 
-   public int getHeight() {
+    public int getHeight() {
         return height;
-   }
+    }
 
     private void verifyTypeBMP() {
         byte[] imageTypeSignature = {header[0], header[1]};
@@ -71,13 +71,12 @@ public class Bitmap {
             // compare the current index of the pixel array minus any padding vs.
             // width * colors bytes * the row we're on (starts at 1 not 0)
             // This should be true when the index points to the first padding byte at the of a row
-            if(i - endOfRowOffset == (width * 3 * pixelsHeightMultiplier)) {
+            if (i - endOfRowOffset == (width * 3 * pixelsHeightMultiplier)) {
                 i += pixelPaddingSize - 1; // this is -1 because we're already on the first padded pixel
                 pixelsWidthIndex = 0;
                 pixelsHeightMultiplier++;
                 endOfRowOffset += pixelPaddingSize;
-            }
-            else {
+            } else {
                 int blue = Byte.toUnsignedInt(pixelData[i++]);
                 int green = Byte.toUnsignedInt(pixelData[i++]);
                 int red = Byte.toUnsignedInt(pixelData[i]);
@@ -90,13 +89,13 @@ public class Bitmap {
 
     private void rebuildPixelDataArray() {
         int index = 0;
-        for(int i = 0; i < height; i++) {
-            for(int j = 0; j < width; j++) {
-                pixelData[index++] = (byte)RGBPixelsArray[i][j].green;
-                pixelData[index++] = (byte)RGBPixelsArray[i][j].blue;
-                pixelData[index++] = (byte)RGBPixelsArray[i][j].red;
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                pixelData[index++] = (byte) RGBPixelsArray[i][j].green;
+                pixelData[index++] = (byte) RGBPixelsArray[i][j].blue;
+                pixelData[index++] = (byte) RGBPixelsArray[i][j].red;
             }
-            for(int k = 0; k < pixelPaddingSize; k++)
+            for (int k = 0; k < pixelPaddingSize; k++)
                 pixelData[index++] = 0;
         }
 
@@ -111,7 +110,7 @@ public class Bitmap {
     }
 
     public void writeOut(File outFile) throws IOException {
-        try(FileOutputStream os = new FileOutputStream(outFile)) {
+        try (FileOutputStream os = new FileOutputStream(outFile)) {
             rebuildPixelDataArray();
             os.write(header);
             os.write(deviceIndependentHeader);
@@ -121,8 +120,8 @@ public class Bitmap {
 
     public void grayScaleTransform() {
         RGB currentColor;
-        for(int i = 0; i < height; i++){
-            for (int j = 0; j < width; j++){
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
                 currentColor = RGBPixelsArray[i][j];
                 int gs = (currentColor.red + currentColor.blue + currentColor.green) / 3;
                 RGB newColor = new RGB(gs, gs, gs);
@@ -130,5 +129,45 @@ public class Bitmap {
             }
         }
     }
+
+    public void invertTransform() {
+        RGB currentColor;
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                currentColor = RGBPixelsArray[i][j];
+                int r = 255 - currentColor.red;
+                int g = 255 - currentColor.green;
+                int b = 255 - currentColor.blue;
+                RGB newColor = new RGB(r, g, b);
+                RGBPixelsArray[i][j] = newColor;
+            }
+        }
+    }
+
+    // positive value brightens, negative value darkens
+    public void brightnessTransform(int value){
+        for(int i = 0; i < height; i++){
+            for (int j = 0; j < width; j++){
+                RGB currentColor = RGBPixelsArray[i][j];
+                int[] rgb = {currentColor.red, currentColor.green, currentColor.blue};
+                for(int index = 0; index < rgb.length; index++) {
+                    if(value >= 0) {
+                        rgb[index] += value;
+                        if (rgb[index] > 255)
+                            rgb[index] = 255;
+                    } else {
+                        rgb[index] += value;
+                        if (rgb[index] < 0)
+                            rgb[index] = 0;
+                    }
+                }
+                RGB newColor = new RGB(rgb[0], rgb[1], rgb[2]);
+                RGBPixelsArray[i][j] = newColor;
+            }
+        }
+    }
+
+    public
+
 
 }

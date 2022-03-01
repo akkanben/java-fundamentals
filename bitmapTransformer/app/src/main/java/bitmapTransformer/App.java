@@ -48,11 +48,11 @@ public class App {
                }
                case "darken" -> {
                    System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by darkening the image.");
-                   //bitmapToTransform.darkenTransform();
+                   bitmapToTransform.brightnessTransform(-40);
                }
                case "lighten" -> {
                    System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by darkening the image.");
-                   //bitmapToTransform.lightenTransform();
+                   bitmapToTransform.brightnessTransform(40);
                }
                case "r-multiply" -> {
                    System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by multiplying the image hue with red.");
@@ -72,7 +72,7 @@ public class App {
                }
                case "invert" -> {
                    System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by inverting the color.");
-                   //bitmapToTransform.invertTransform();
+                   bitmapToTransform.invertTransform();
                }
                case "randomize" -> {
                    System.out.println("Transforming " + inputFileName + " to " + outputFileName + " by randomizing each pixel color.");
